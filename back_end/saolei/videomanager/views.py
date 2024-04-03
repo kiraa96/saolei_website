@@ -51,12 +51,12 @@ def video_upload(request):
         # print(video_form)
         if video_form.is_valid():
             data = video_form.cleaned_data
-            if data["designator"] not in request.user.userms.designators:
+            if data["player_id_txt"] not in request.user.userms.player_id_txts:
                 # 如果标识是首次使用的，需要得到管理员的审核
                 data['review_code'] = 2
 
             # 表中添加数据
-            e_video = ExpandVideoModel.objects.create(designator=data["designator"],
+            e_video = ExpandVideoModel.objects.create(player_id_txt=data["player_id_txt"],
                                                       left=data["left"], right=data["right"],
                                                       double=data["double"], cl=data["cl"],
                                                       left_s=data["left_s"], right_s=data["right_s"],
@@ -372,10 +372,10 @@ def approve(request):
                 else:
                     # 录像通过审核
                     ms_player = video_i.player.userms
-                    if e_video.designator not in ms_player.designators:
+                    if e_video.player_id_txt not in ms_player.player_id_txt:
                         # 给用户增加新的标识
-                        ms_player.designators.append(e_video.designator)
-                        ms_player.save(update_fields=["designators"])
+                        ms_player.player_id_txt.append(e_video.player_id_txt)
+                        ms_player.save(update_fields=["player_id_txt"])
                     video_i.state = "c"
                     video_i.upload_time = timezone.now()
                     res.append("True")

@@ -260,7 +260,7 @@ const handleVideoUpload = async (options: UploadRequestOptions) => {
     params.append("rtime", aa.get_rtime.toFixed(3));
     params.append("bv", aa.get_bbbv + "");
     params.append("bvs", aa.get_bbbv_s + "");
-    params.append("designator", decoder.decode(aa.get_player_designator));
+    params.append("player_id_txt", decoder.decode(aa.get_player_designator)); // get_player_designator属于ms_toollib
     params.append("left", aa.get_left + "");
     params.append("right", aa.get_right + "");
     params.append("double", aa.get_double + "");

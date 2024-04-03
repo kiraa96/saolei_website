@@ -183,10 +183,10 @@ def update_realname(request):
             except Exception as e:
                 return JsonResponse({"status": 107, "msg": "未知错误。可能原因：不支持此种字符"})
             update_cache_realname(user.id, realname)
-            # designators = json.loads(user.userms.designators)
-            user.userms.designators.append(realname)
-            # user.userms.designators = json.dumps(designators)
-            user.userms.save(update_fields=["designators"])
+            # player_id_txts = json.loads(user.userms.player_id_txts)
+            user.userms.player_id_txts.append(realname)
+            # user.userms.player_id_txts = json.dumps(player_id_txts)
+            user.userms.save(update_fields=["player_id_txts"])
             return JsonResponse({"status": 100, "msg": {"n": user.left_realname_n}})
         else:
             ErrorDict = json.loads(user_update_realname_form.errors.as_json())
